@@ -16,30 +16,46 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  //debugger;
+  var solution = new Board({n: n});
 
   // number of rooks is n
+  var nRooks = n;
   // make nxn board
-  // call colConflicts and rowConflicts on every cell
+  var board = new Board({n: n});
+  var allRows = board.rows();
   // for i = 0 to i = length of board
-  //
-    // if both return false
-      // turn the cell value to 1
-  // return the board
+  for (var row = 0; row < board.get('n'); row++) {
+    for (var col = 0; col < board.get('n'); col++) {
+      allRows[row][col] = 1;
+      if (board.hasColConflictAt(col) || board.hasRowConflictAt(row)) {
+        allRows[row][col] = 0;
+      }
+    }
+  }
 
+  solution = board;
+  // call colConflicts and rowConflicts on every cell
   // var newBoard = new Board(dimensions -> {n: x});
   // var newBoard = new Board(board -> [[0, 0], [0, 0]]);
-  // start by putting a piece in top left corner
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  return solution.rows();
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
-  // call find N rooks solution for every space
-  // if possible (somehow) don't double count solutions
+  var solutionCount = 0;
+
+  var factorial = function(number) {
+    if (number === 0 || number === 1) {
+      return 1;
+    } else {
+      return number * factorial(number - 1);
+    }
+  };
+
+  solutionCount = factorial(n);
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
