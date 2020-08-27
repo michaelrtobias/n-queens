@@ -42,22 +42,25 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = 0;
+  var solutionCount = 0; //fixme
+  // call find N rooks solution for every space
+  // if possible (somehow) don't double count solutions
+  // n! possibilities
+  // use hasAnyRooksConflicts
   var result = n;
-
-
-
   var factorial = function(num) {
-    if (num === 1 || num === 0) {
+    if (num === 1 || num === 0) {                 // if n = 0: return 1
+      return 1;                                   // if n = 1: return 1
     } else {
-      return result = num * factorial(num - 1);
+      return result = num * factorial(num - 1);   // if n = 2: 2 * factorial(1) = 2 * 1 = 2
+      // if n = 3: 3 * factorial(2) = 3 * 2 = 6
+      // if n = 4: 3 * factorial(3) = 4 * 6 = 24
     }
   };
   factorial(n);
   solutionCount = result;
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
-
 };
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
