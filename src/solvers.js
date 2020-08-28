@@ -122,7 +122,7 @@ window.countNQueensSolutions = function(n) {
 
   var solutionCount = 0;
 
-  var findSolution = function(row, n, board, validator, callback) {
+  var findPossibleSolutions = function(row, n, board, checker, callback) {
 
     if (row === n) {
       return callback();
@@ -133,8 +133,8 @@ window.countNQueensSolutions = function(n) {
 
       board.togglePiece(row, i);
 
-      if (!board[validator]()) {
-        var result = findSolution(row + 1, n, board, validator, callback);
+      if (!board[checker]()) {
+        var result = findPossibleSolutions(row + 1, n, board, checker, callback);
         if (result) {
           return result;
         }
@@ -144,7 +144,7 @@ window.countNQueensSolutions = function(n) {
     }
   };
 
-  findSolution(0, n, board, 'hasAnyQueensConflicts', function() {
+  findPossibleSolutions(0, n, board, 'hasAnyQueensConflicts', function() {
     solutionCount++;
   });
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
